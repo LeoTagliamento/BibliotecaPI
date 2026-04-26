@@ -2,11 +2,11 @@
   "name": "aulajs2",
   "version": "1.0.0",
   "description": "npm init -y",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "node --watch index.js"
+    "start": "node dist/index.js",
+    "dev": "node --watch dist/index.js"
   },
   "keywords": [],
   "author": "",
