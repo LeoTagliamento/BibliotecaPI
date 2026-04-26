@@ -17,9 +17,7 @@ const scanf = readline.createInterface({
     output: process.stdout  
 });
 
-let escolha = 1;
 
-while(escolha !== 0){
     console.log("Tagliameto's Biblioteca");
 
     scanf.question(
@@ -47,8 +45,14 @@ while(escolha !== 0){
                             });
                         });
                     });
-                    break;   
+                    break; 
+
+                case '2':  
+                console.log("Lista de livros cadastrados:");
+                   biblioteca.forEach((livro: Book, indice: number) => {
+                    console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
+                });
+                break;
             }
         }
     );
-}
