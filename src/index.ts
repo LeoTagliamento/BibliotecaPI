@@ -34,11 +34,11 @@ while(escolha !== 0){
                     scanf.question("Digite o título do livro: ", (titulo: string) => {
                         scanf.question("Digite o autor do livro: ", (autor: string) => {
                             scanf.question("Digite o gênero do livro: ", (genero: string) => {
-                                scanf.question("Digite o ano de publicação do livro: ", (ano: number) => { 
-                                    scanf.question("O livro já foi lido? true/false: ", (lido: boolean) => {
-                                        scanf.question("Digite a avaliação do livro (0-5): ", (avaliacao: number) => {
+                                scanf.question("Digite o ano de publicação do livro: ", (ano: string) => { 
+                                    scanf.question("O livro já foi lido? true/false: ", (lido: string) => {
+                                        scanf.question("Digite a avaliação do livro (0-5): ", (avaliacao: string) => {
                                             
-                                            const novoLivro: Book = {titulo, autor, genero, ano, lido, avaliacao};
+                                            const novoLivro: Book = {titulo, autor, genero, ano:parseInt(ano), lido: lido === 'true', avaliacao:parseFloat(avaliacao)};
                                             biblioteca.push(novoLivro);
 
                                         });
