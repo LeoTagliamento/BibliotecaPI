@@ -96,6 +96,8 @@ const scanf = readline.createInterface({
                         }
                     });
                     break;
+
+                    default: console.log("Opção inválida.");
             }
         }
     );
