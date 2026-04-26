@@ -30,10 +30,10 @@ const scanf = readline.createInterface({
     console.log("\nTagliameto's Biblioteca");
 carregarBiblioteca();
 function retornarMenu(){
+    console.log("===================================================================================================");
     scanf.question(
         "Escolha uma opção: \n 1 - Cadastrar livro \n 2 - Listar todos os livros \n 3 - Consultar livro \n 0 - Sair\n",
         (escolha) => {
-    
             switch(escolha){
 
                 case '0':
@@ -75,7 +75,7 @@ function retornarMenu(){
                         switch(tipoConsulta){
                             case '1':
                                 scanf.question("Digite o título do livro que deseja consultar: ", (tituloConsulta: string) => {
-                                    const resultados = biblioteca.filter((livro: Book) => livro.titulo.includes(tituloConsulta));
+                                    const resultados = biblioteca.filter((livro: Book) => livro.titulo.toLowerCase().includes(tituloConsulta.toLowerCase()));
                                     if (resultados.length === 0) {
                                         console.log("Nenhum livro encontrado com esse título.");
                                     } else {
@@ -88,7 +88,7 @@ function retornarMenu(){
                                 break;
                             case '2':
                                 scanf.question("Digite o autor do livro: ", (autorConsulta: string) => {
-                                    const resultados = biblioteca.filter((livro: Book) => livro.autor.includes(autorConsulta));
+                                    const resultados = biblioteca.filter((livro: Book) => livro.autor.toLowerCase().includes(autorConsulta.toLowerCase()));
                                     if (resultados.length === 0) {
                                         console.log("Nenhum livro encontrado desse autor.");
                                     } else {
@@ -101,7 +101,7 @@ function retornarMenu(){
                                 break;
                             case '3':
                                 scanf.question("Digite o gênero do livro: ", (generoConsulta: string) => {
-                                    const resultados = biblioteca.filter((livro: Book) => livro.genero.includes(generoConsulta));
+                                    const resultados = biblioteca.filter((livro: Book) => livro.genero.toLowerCase().includes(generoConsulta.toLowerCase()));
                                     if (resultados.length === 0) {
                                         console.log("Nenhum livro encontrado desse gênero.");
                                     } else {
