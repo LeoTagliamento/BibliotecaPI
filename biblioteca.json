@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "titulo": "A Revolução dos Bichos",
+    "autor": "George Orwell",
+    "genero": "Fábula",
+    "ano": 1945,
+    "lido": true,
+    "avaliacao": 4.6
+  },
+  {
+    "titulo": "The Art of Being Right",
+    "autor": "Arthur Schopenhauer",
+    "genero": "Filosofia",
+    "ano": 1831,
+    "lido": true,
+    "avaliacao": 3.9
+  },
+  {
+    "titulo": "The Little Prince",
+    "autor": "Antoine de Saint-Exupéry",
+    "genero": "Fábula",
+    "ano": 1943,
+    "lido": true,
+    "avaliacao": 5
+  }
+]
