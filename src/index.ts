@@ -53,6 +53,49 @@ const scanf = readline.createInterface({
                     console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
                 });
                 break;
+
+                case '3':
+                    scanf.question("Tipo de consulta:\n 1 - Titulo \n 2 - Autor \n 3 - Gênero\n", (tipoConsulta: string) => {
+                        switch(tipoConsulta){
+                            case '1':
+                                scanf.question("Digite o título do livro que deseja consultar: ", (tituloConsulta: string) => {
+
+                                    const resultados = biblioteca.filter((livro: Book) => livro.titulo.includes(tituloConsulta));
+                                    if (resultados.length === 0) {
+                                        console.log("Nenhum livro encontrado com esse título.");
+                                    } else {
+                                        resultados.forEach((livro) => {
+                                            console.log(`${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
+                                        });
+                                    }
+                                });
+                                break;
+                            case '2':
+                                scanf.question("Digite o autor do livro: ", (autorConsulta: string) => {
+                                    const resultados = biblioteca.filter((livro: Book) => livro.autor.includes(autorConsulta));
+                                     if (resultados.length === 0) {
+                                        console.log("Nenhum livro encontrado desse autor.");
+                                    } else {
+                                        resultados.forEach((livro) => {
+                                            console.log(`${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
+                                        });
+                                    }
+                                });
+                                break;
+                            case '3':
+                                scanf.question("Digite o gênero do livro: ", (generoConsulta: string) => {
+                                    const resultados = biblioteca.filter((livro: Book) => livro.genero.includes(generoConsulta));
+                                     if (resultados.length === 0) {
+                                        console.log("Nenhum livro encontrado desse gênero.");
+                                    } else {
+                                        resultados.forEach((livro) => {
+                                            console.log(`${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
+                                        });
+                                    }
+                                });
+                        }
+                    });
+                    break;
             }
         }
     );
