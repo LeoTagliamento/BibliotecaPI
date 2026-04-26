@@ -11,6 +11,15 @@ type Book = {
 }
 
 const biblioteca: Book[] = [];
+function carregarBiblioteca(): void {
+        const todosLivros = fs.readFileSync('biblioteca.json', 'utf8');
+            biblioteca.push(...JSON.parse(todosLivros) as Book[]);
+    
+}
+function salvarBiblioteca(): void {
+    const bibliotecajson = JSON.stringify(biblioteca, null, 2);
+    fs.writeFileSync('biblioteca.json', bibliotecajson, 'utf8');
+}
 
 const scanf = readline.createInterface({
     input: process.stdin,
@@ -19,6 +28,7 @@ const scanf = readline.createInterface({
 
 
     console.log("\nTagliameto's Biblioteca");
+carregarBiblioteca();
 function retornarMenu(){
     scanf.question(
         "Escolha uma opção: \n 1 - Cadastrar livro \n 2 - Listar todos os livros \n 3 - Consultar livro \n 0 - Sair\n",
@@ -41,6 +51,7 @@ function retornarMenu(){
                                             
                                             const novoLivro: Book = {titulo, autor, genero, ano:parseInt(ano), lido: lido === 'true', avaliacao:parseFloat(avaliacao)};
                                             biblioteca.push(novoLivro);
+                                            salvarBiblioteca();
                                             console.log('Livro cadastrado com sucesso.');
                                             retornarMenu();
                                         });
