@@ -33,7 +33,7 @@ carregarBiblioteca();
 function retornarMenu(){
     console.log("===================================================================================================");
     scanf.question(
-        "Escolha uma opção: \n 1 - Cadastrar livro \n 2 - Listar todos os livros \n 3 - Consultar livro \n 4 - Remover livro \n 0 - Sair\n",
+        "Escolha uma opção: \n 1 - Cadastrar livro \n 2 - Listar todos os livros \n 3 - Consultar livro \n 4 - Remover livro \n 5 - Marcar como lido \n 0 - Sair\n",
         (escolha) => {
             switch(escolha){
 
@@ -145,6 +145,16 @@ function retornarMenu(){
                         retornarMenu();
                     });
                     break;
+                case '5':
+                    scanf.question("Digite o titulo do livro que foi lido:", (livroLido: string) => {
+                    const posicao = biblioteca.findIndex((livro: Book) => livro.titulo.toLowerCase() === livroLido.toLowerCase());
+                    if (posicao === -1) {
+                        console.log("Livro não encontrado.");
+                    } else { 
+                        if (biblioteca(lido) === true {
+                            console.log("Livro já lido.");
+                        } else {
+                        
                 default:
                     console.log("Opção inválida.");
                     retornarMenu();
