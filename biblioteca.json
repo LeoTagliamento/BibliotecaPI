@@ -4,6 +4,7 @@
     "autor": "George Orwell",
     "genero": "Fábula",
     "ano": 1945,
+    "paginas": 152,
     "lido": true,
     "avaliacao": 4.6
   },
@@ -12,15 +13,44 @@
     "autor": "Arthur Schopenhauer",
     "genero": "Filosofia",
     "ano": 1831,
+    "paginas": 38,
     "lido": true,
     "avaliacao": 3.9
   },
   {
-    "titulo": "The Little Prince",
+    "titulo": "O Pequeno Príncipe",
     "autor": "Antoine de Saint-Exupéry",
     "genero": "Fábula",
     "ano": 1943,
+    "paginas": 96,
     "lido": true,
-    "avaliacao": 5
+    "avaliacao": 4.8
+  },
+  {
+    "titulo": "Dom Casmurro",
+    "autor": "Machado de Assis",
+    "genero": "Romance",
+    "ano": 1899,
+    "paginas": 256,
+    "lido": false,
+    "avaliacao": null
+  },
+  {
+    "titulo": "O Príncipe",
+    "autor": "Nicolau Maquiavel",
+    "genero": "Filosofia",
+    "ano": 1532,
+    "paginas": 140,
+    "lido": false,
+    "avaliacao": null
+  },
+  {
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "genero": "Ficção",
+    "ano": 1949,
+    "paginas": 328,
+    "lido": false,
+    "avaliacao": null
   }
 ]

@@ -6,8 +6,9 @@ type Book = {
     autor: string,
     genero: string,
     ano: number,
+    paginas: number,
     lido: boolean,
-    avaliacao: number
+    avaliacao: number | null
 }
 
 const biblioteca: Book[] = [];
@@ -46,22 +47,34 @@ function retornarMenu(){
                         scanf.question("Digite o autor do livro: ", (autor: string) => {
                             scanf.question("Digite o gênero do livro: ", (genero: string) => {
                                 scanf.question("Digite o ano de publicação do livro: ", (ano: string) => { 
-                                    scanf.question("O livro já foi lido? true/false: ", (lido: string) => {
-                                        scanf.question("Digite a avaliação do livro (0-5): ", (avaliacao: string) => {
-                                            
-                                            const novoLivro: Book = {titulo, autor, genero, ano:parseInt(ano), lido: lido === 'true', avaliacao:parseFloat(avaliacao)};
+                                    scanf.question("Digite o número de páginas do livro: ", (paginas: string) => {
+                                        scanf.question("O livro já foi lido? true/false: ", (lido: string) => {
+                                            scanf.question("Digite a avaliação do livro (0-5) ou se não foi lido deixe em branco: ", (avaliacao: string) => {
+                                            if (parseInt(ano) <= 0) {
+                                                console.log("Ano de publicação inválido.");
+                                                retornarMenu();
+                                                return;
+                                            }
+                                            if (parseInt(paginas) <= 0) {
+                                                console.log("Número de páginas inválido.");
+                                                retornarMenu();
+                                                return; 
+                                            }
+                                            const novoLivro: Book = {titulo, autor, genero, ano:parseInt(ano), paginas:parseInt(paginas), lido: lido === 'true', avaliacao: avaliacao === '' ? null : parseFloat(avaliacao)};
                                             biblioteca.push(novoLivro);
                                             salvarBiblioteca();
                                             console.log('Livro cadastrado com sucesso.');
                                             retornarMenu();
+
                                         });
                                     });
                                 });
                             });
                         });
                     });
-                    break; 
-
+                });
+                break;
+                
                 case '2':  
                     console.log("Lista de livros cadastrados:");
                     biblioteca.forEach((livro: Book, indice: number) => {
@@ -129,7 +142,7 @@ function retornarMenu(){
                             salvarBiblioteca();
                             console.log("Livro removido com sucesso.");
                         }   
-                        retornarMenu();t
+                        retornarMenu();
                     });
                     break;
                 default:
