@@ -150,11 +150,27 @@ function retornarMenu(){
                     const posicao = biblioteca.findIndex((livro: Book) => livro.titulo.toLowerCase() === livroLido.toLowerCase());
                     if (posicao === -1) {
                         console.log("Livro não encontrado.");
+                        break;
                     } else { 
-                        if (biblioteca(lido) === true {
+                        if (biblioteca[posicao].lido === true) {
                             console.log("Livro já lido.");
                         } else {
-                        
+                            biblioteca[posicao].lido = true;
+                            scanf.question("Digite a avaliação do livro (0-5): ", (avaliacaoLido: string) => {
+                                if (avaliacaoLido < '0' || avaliacaoLido > '5') { 
+                                    console.log("Avaliação inválida.");
+                                } else {
+                                    biblioteca[posicao].lido = true;
+                                    biblioteca[posicao].avaliacao = parseInt(avaliacaoLido);
+                                    salvarBiblioteca();
+                                    console.log("Livro lido e avaliado com sucesso.");
+                                }
+                                retornarMenu();
+                            });
+                        }
+                    }
+                });
+                    break;0
                 default:
                     console.log("Opção inválida.");
                     retornarMenu();
