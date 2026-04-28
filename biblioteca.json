@@ -50,7 +50,7 @@
     "genero": "Ficção",
     "ano": 1949,
     "paginas": 328,
-    "lido": false,
-    "avaliacao": null
+    "lido": true,
+    "avaliacao": 3
   }
 ]

@@ -146,22 +146,25 @@ function retornarMenu(){
                     });
                     break;
                 case '5':
+                    console.log("Lista de livros cadastrados:");
+                    biblioteca.forEach((livro: Book, indice: number) => {
+                    console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
+                    });
                     scanf.question("Digite o titulo do livro que foi lido:", (livroLido: string) => {
-                    const posicao = biblioteca.findIndex((livro: Book) => livro.titulo.toLowerCase() === livroLido.toLowerCase());
-                    if (posicao === -1) {
+                    const livro = biblioteca.find((livro: Book) => livro.titulo.toLowerCase() === livroLido.toLowerCase());
+                    if (livro === undefined) {
                         console.log("Livro não encontrado.");
-                        break;
                     } else { 
-                        if (biblioteca[posicao].lido === true) {
+                        if (livro.lido === true) {
                             console.log("Livro já lido.");
                         } else {
-                            biblioteca[posicao].lido = true;
+                            livro.lido = true;
                             scanf.question("Digite a avaliação do livro (0-5): ", (avaliacaoLido: string) => {
                                 if (avaliacaoLido < '0' || avaliacaoLido > '5') { 
                                     console.log("Avaliação inválida.");
                                 } else {
-                                    biblioteca[posicao].lido = true;
-                                    biblioteca[posicao].avaliacao = parseInt(avaliacaoLido);
+                                    livro.lido = true;
+                                    livro.avaliacao = parseInt(avaliacaoLido);
                                     salvarBiblioteca();
                                     console.log("Livro lido e avaliado com sucesso.");
                                 }
