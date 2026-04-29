@@ -1,61 +1,38 @@
 # 📚 Biblioteca Pessoal - TypeScript CLI
 
-Projeto desenvolvido em TypeScript que simula um **gerenciador de biblioteca pessoal via terminal**, permitindo cadastrar, listar, consultar e remover livros, além de persistência de dados em arquivo JSON.
+Projeto desenvolvido em **TypeScript** que simula um **gerenciador de biblioteca pessoal via terminal**, permitindo cadastrar, listar, consultar, remover, marcar como lido e gerar estatísticas dos livros, com persistência em arquivo JSON.
 
 ---
 
 ## 🚀 Funcionalidades
 
-O sistema oferece as seguintes opções:
-
-### 📖 Cadastro de livros
-
-* Título
-* Autor
-* Gênero
-* Ano de publicação
-* Número de páginas
-* Status de leitura (true/false)
-* Avaliação (0 a 5 ou `null` se não lido)
+- 📖 **Cadastro de livros** (título, autor, gênero, ano, páginas, status de leitura e avaliação)
+- 📋 **Listagem** completa dos livros cadastrados
+- 🔎 **Consulta** por título, autor ou gênero (busca parcial)
+- ❌ **Remoção** de livros pelo título
+- ✅ **Marcar como lido** com avaliação de 0 a 5
+- 📊 **Estatísticas** da biblioteca
+- 💾 **Banco de informações persistentes** em `biblioteca.json`
 
 ---
 
-### 📋 Listagem de livros
-
-Exibe todos os livros cadastrados com suas informações completas.
-
----
-
-### 🔎 Consulta de livros
-
-Permite buscar livros por:
-
-* Título (busca parcial)
-* Autor (busca parcial)
-* Gênero (busca parcial)
-
----
-
-### ❌ Remoção de livros
-
-Remove um livro da biblioteca pelo título.
-
----
-
-### 💾 Persistência de dados
-
-* Os dados são salvos no arquivo `biblioteca.json`
-* Ao iniciar o programa, os livros são carregados automaticamente
-
----
-
-## 🧠 Estrutura do projeto
+## 🧱 Estrutura do projeto
 
 ```
 BibliotecaPI/
 ├── src/
-│   └── index.ts
-├── biblioteca.json
+│   ├── index.ts            # Entrada da aplicação e menu
+│   ├── biblioteca.ts       # Carregamento do banco
+│   ├── prompt.ts           # Interface de leitura (readline)
+│   ├── tipos.ts            # Tipagens (Book)
+│   └── acoes/
+│       ├── cadastrar.ts
+│       ├── listar.ts
+│       ├── consultar.ts
+│       ├── remover.ts
+│       ├── marcarLido.ts
+│       └── estatisticas.ts
+├── biblioteca.json         # Banco de dados em JSON
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -64,8 +41,6 @@ BibliotecaPI/
 ---
 
 ## 📦 Modelo de dados
-
-Cada livro segue a seguinte estrutura:
 
 ```ts
 type Book = {
@@ -81,37 +56,45 @@ type Book = {
 
 ---
 
-## ▶️ Como executar o projeto
+## ⚙️ Pré-requisitos
 
-### 1. Instalar dependências
+- [Node.js](https://nodejs.org/) 18 ou superior
+- npm (já incluso no Node.js)
 
-```bash
+---
+
+## ▶️ Como executar
+
+### 1. Clonar o repositório
+
+```cmd
+git clone https://github.com/LeoTagliamento/BibliotecaPI.git
+cd BibliotecaPI
+```
+
+### 2. Instalar as dependências
+
+```cmd
 npm install
 ```
 
----
+### 3. Executar o projeto
 
-### 2. Compilar o TypeScript
-
-```bash
-npx tsc
+```cmd
+npm start
 ```
 
----
-
-### 3. Executar o programa
-
-```bash
-node dist/index.js
-```
+> O script `start` já compila o TypeScript (`tsc`) e executa o arquivo gerado em `dist/index.js`.
 
 ---
 
-### (opcional) Modo desenvolvimento
+## 🧪 Scripts disponíveis
 
-```bash
-npx tsc --watch
-```
+| Script          | Descrição                                                  |
+| --------------- | ---------------------------------------------------------- |
+| `npm start`     | Compila o TypeScript e executa o programa                  |
+| `npm run build` | Apenas compila o TypeScript para a pasta `dist/`           |
+| `npm run dev`   | Executa o programa em modo watch (`node --watch dist/...`) |
 
 ---
 
@@ -121,56 +104,39 @@ npx tsc --watch
 Tagliamento's Biblioteca
 ===================================================================================================
 Escolha uma opção:
-1 - Cadastrar livro
-2 - Listar todos os livros
-3 - Consultar livro
-4 - Remover livro
-0 - Sair
+ 1 - Cadastrar livro
+ 2 - Listar todos os livros
+ 3 - Consultar livro
+ 4 - Remover livro
+ 5 - Marcar como lido
+ 6 - Estatísticas
+ 0 - Sair
 ```
-
----
-
-## ⚙️ Regras de validação
-
-* Ano deve ser maior que 0
-* Número de páginas deve ser maior que 0
-* Avaliação:
-
-  * 0 a 5
-  * ou `null` se o livro não foi lido
 
 ---
 
 ## 💡 Tecnologias utilizadas
 
-* Node.js
-* TypeScript
-* File System (fs)
-* Readline (CLI interativo)
-* JSON para persistência
+- Node.js
+- TypeScript
+- Módulo `fs` (persistência em arquivo)
+- Módulo `readline` (CLI interativa)
+- JSON para armazenamento
 
 ---
 
-## 🧱 Conceitos aplicados
+## 🧠 Conceitos aplicados
 
-* Tipagem com TypeScript
-* Controle de fluxo (if, switch)
-* Arrays e métodos (filter, findIndex, forEach)
-* Funções
-* Persistência em arquivos
-* Programação orientada a fluxo de menu (CLI)
-
----
-
-## 📌 Observações
-
-* O sistema utiliza leitura e escrita em arquivo JSON para persistência
-* A biblioteca é carregada automaticamente ao iniciar o programa
-* Toda interação ocorre via terminal
+- Tipagem estática com TypeScript
+- Modularização em arquivos e pastas
+- Controle de fluxo (`if`, `switch`)
+- Métodos de arrays (`filter`, `map`, `forEach`, `findIndex`, `reduce`)
+- Persistência em arquivo JSON
+- Interface CLI baseada em menu
 
 ---
 
 ## 👨‍💻 Autor
 
-Projeto desenvolvido por **Tagliamento Leo**
-Projeto Integrador - Gerenciador de Biblioteca Pessoal
+Projeto desenvolvido por **Leonardo Tagliamento**
+Gerenciador de Biblioteca Pessoal
