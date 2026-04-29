@@ -1,6 +1,11 @@
-import type { Book } from './tipos.js';
-import { biblioteca, carregarBiblioteca, salvarBiblioteca } from './biblioteca.js';
 import { scanf } from './prompt.js';
+import { carregarBiblioteca } from './biblioteca.js';
+import { cadastrarLivro } from './acoes/cadastrar.js';
+import { listarLivros } from './acoes/listar.js';
+import { consultarLivro } from './acoes/consultar.js';
+import { removerLivro } from './acoes/remover.js';
+import { marcarLivroLido } from './acoes/marcarLido.js';
+import { exibirEstatisticas } from './acoes/estatisticas.js';
 
 
     console.log("\nTagliameto's Biblioteca");
@@ -18,185 +23,25 @@ function retornarMenu(): void{
                     break;
 
                 case '1':
-                    scanf.question("Digite o título do livro: ", (titulo: string) => {
-                        scanf.question("Digite o autor do livro: ", (autor: string) => {
-                            scanf.question("Digite o gênero do livro: ", (genero: string) => {
-                                scanf.question("Digite o ano de publicação do livro: ", (ano: string) => { 
-                                    scanf.question("Digite o número de páginas do livro: ", (paginas: string) => {
-                                        scanf.question("O livro já foi lido? true/false: ", (lido: string) => {
-                                            scanf.question("Digite a avaliação do livro (0-5) ou se não foi lido deixe em branco: ", (avaliacao: string) => {
-                                            if (parseInt(ano) <= 0) {
-                                                console.log("Ano de publicação inválido.");
-                                                retornarMenu();
-                                                return;
-                                            }
-                                            if (parseInt(paginas) <= 0) {
-                                                console.log("Número de páginas inválido.");
-                                                retornarMenu();
-                                                return; 
-                                            }
-                                            const novoLivro: Book = {titulo, autor, genero, ano:parseInt(ano), paginas:parseInt(paginas), lido: lido === 'true', avaliacao: avaliacao === '' ? null : parseFloat(avaliacao)};
-                                            biblioteca.push(novoLivro);
-                                            salvarBiblioteca();
-                                            console.log('Livro cadastrado com sucesso.');
-                                            retornarMenu();
-
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-                break;
+                    cadastrarLivro(retornarMenu);
+                    break;
                 
                 case '2':  {
-                    console.log("Lista de livros cadastrados:");
-                    biblioteca.forEach((livro: Book, indice: number) => {
-                        console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                    });
+                    listarLivros();
                     retornarMenu();
                     break;
                 }
                 case '3':
-                    scanf.question("Tipo de consulta:\n 1 - Titulo \n 2 - Autor \n 3 - Gênero\n", (tipoConsulta: string) => {
-                        switch(tipoConsulta){
-                            case '1':
-                                scanf.question("Digite o título do livro que deseja consultar: ", (tituloConsulta: string) => {
-                                    const resultados: Book[] = biblioteca.filter((livro: Book) => livro.titulo.toLowerCase().includes(tituloConsulta.toLowerCase()));
-                                    if (resultados.length === 0) {
-                                        console.log("Nenhum livro encontrado com esse título.");
-                                    } else {
-                                        resultados.forEach((livro:Book) => {
-                                            console.log(`${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                                        });
-                                    }
-                                    retornarMenu();
-                                });
-                                break;
-                            case '2':
-                                scanf.question("Digite o autor do livro: ", (autorConsulta: string) => {
-                                    const resultados: Book[] = biblioteca.filter((livro: Book) => livro.autor.toLowerCase().includes(autorConsulta.toLowerCase()));
-                                    if (resultados.length === 0) {
-                                        console.log("Nenhum livro encontrado desse autor.");
-                                    } else {
-                                        resultados.forEach((livro: Book) => {
-                                            console.log(`${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                                        });
-                                    }
-                                    retornarMenu();
-                                });
-                                break;
-                            case '3':
-                                scanf.question("Digite o gênero do livro: ", (generoConsulta: string) => {
-                                    const resultados: Book[] = biblioteca.filter((livro: Book) => livro.genero.toLowerCase().includes(generoConsulta.toLowerCase()));
-                                    if (resultados.length === 0) {
-                                        console.log("Nenhum livro encontrado desse gênero.");
-                                    } else {
-                                        resultados.forEach((livro: Book) => {
-                                            console.log(`${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                                        });
-                                    }
-                                    retornarMenu();
-                                });
-                                break;
-                            default:
-                                console.log("Tipo de consulta inválido.");
-                                retornarMenu();
-                                break;
-                        }
-                    });
+                    consultarLivro(retornarMenu);
                     break;
                 case '4':
-                    scanf.question("Digite o titulo do livro para remover: ", (tituloRemover: string) => {
-                        const posicao: number = biblioteca.findIndex((livro: Book) => livro.titulo.toLowerCase() === tituloRemover.toLowerCase());
-                        if (posicao === -1) {
-                            console.log("Livro não encontrado.");
-                        } else {
-                            biblioteca.splice(posicao, 1);
-                            salvarBiblioteca();
-                            console.log("Livro removido com sucesso.");
-                        }   
-                        retornarMenu();
-                    });
+                    removerLivro(retornarMenu);    
                     break;
                 case '5':
-                    console.log("Lista de livros lidos:");
-                    biblioteca.forEach((livro: Book, indice: number) => { if(livro.lido === true){
-                    console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                    }});
-                    console.log("Lista de livros pendentes:");
-                    biblioteca.forEach((livro: Book, indice: number) => { if(livro.lido === false){
-                    console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                    }});
-                    scanf.question("Digite o titulo do livro que foi lido:", (livroLido: string) => {
-                    const livro: Book | undefined = biblioteca.find((livro: Book) => livro.titulo.toLowerCase() === livroLido.toLowerCase());
-                    if (livro === undefined) {
-                        console.log("Livro não encontrado.");
-                    } else { 
-                        if (livro.lido === true) {
-                            console.log("Livro já lido.");
-                        } else {
-                            livro.lido = true;
-                            scanf.question("Digite a avaliação do livro (0-5): ", (avaliacaoLido: string) => {
-                                if (avaliacaoLido < '0' || avaliacaoLido > '5') { 
-                                    console.log("Avaliação inválida.");
-                                } else {
-                                    livro.lido = true;
-                                    livro.avaliacao = parseInt(avaliacaoLido);
-                                    salvarBiblioteca();
-                                    console.log("Livro lido e avaliado com sucesso.");
-                                }
-                                retornarMenu();
-                            });
-                        }
-                    }
-                });
+                    marcarLivroLido(retornarMenu);
                     break;
                 case '6': {
-                    if (biblioteca.length === 0) {
-                        console.log("Nenhum livro cadastrado.");
-                        retornarMenu();
-                        break;
-                    }
-                    console.log("===================================================================================================")
-                    console.log (`Total de livros: ${biblioteca.length} livros(s)`); // Total de livros
-                    const totalLidos: number =  biblioteca.reduce((contagem: number,atual: Book) => contagem + (atual.lido ? 1 : 0) ,0); // Total de livros
-                    console.log (`Total lido: ${totalLidos} livro(s)`); //Livro lidos
-                    const percentualLido: number = (totalLidos * 100) / biblioteca.length; // Percentual lidos
-                    console.log(`Percentual de livros lidos: ${percentualLido.toFixed(2)}%`);// Percentual lidos
-                    const listaAvaliacao: Book[] = biblioteca.filter((livro: Book) => livro.avaliacao !== null);  // Media Avaliações
-                    const mediaAvaliacao: number = (listaAvaliacao.reduce((contagem: number,livro: Book) => contagem + livro.avaliacao!,0))/listaAvaliacao.length;  // Media Avaliações
-                    console.log(`Media das avaliações: ${mediaAvaliacao.toFixed(1)}/5`) // Media Avaliações
-                    if (listaAvaliacao.length > 0){
-                    const maiorAvaliacao: Book  = listaAvaliacao.reduce((maior: Book, atual: Book) => atual.avaliacao! > maior.avaliacao! ? atual : maior);
-                    console.log(`Maior avaliação: ${maiorAvaliacao.avaliacao!.toFixed(1)} do livro ${maiorAvaliacao.titulo}`);}
-                    const totalPaginasLidas: number = listaAvaliacao.reduce((total: number, atual: Book) => total + atual.paginas!,0);
-                    console.log(`Total de páginas lidas: ${totalPaginasLidas}`);
-                    console.log("===================================================================================================");
-                    const grupos: { [decada: number]: Book[] } = {};
-                    biblioteca.forEach((livro: Book) => {
-                        const decada: number = Math.floor(livro.ano / 10) * 10;
-                        if (!grupos[decada]) grupos[decada] = [];
-                        grupos[decada].push(livro);
-                    });
-                    console.log("Livros por década:");
-                    Object.keys(grupos).map(Number).sort((a: number, b: number) => a - b).forEach((decada: number) => {
-                            const livrosPorDecada: Book[] = grupos[decada]!;
-                            console.log(`${decada}s (${livrosPorDecada.length} livro(s)):`);
-                            livrosPorDecada.forEach((livro: Book) => {
-                                console.log(`- ${livro.titulo} (${livro.ano})`);
-                            });
-                        });
-                    console.log("===================================================================================================");
-                    const ranking: Book[] = [...listaAvaliacao].sort((a: Book, b: Book) => b.avaliacao! - a.avaliacao!);
-                    if (ranking.length > 0) {
-                        console.log("Ranking de avaliação:");
-                        ranking.forEach((livro: Book, indice: number) => {
-                            console.log(`${indice + 1}º - ${livro.titulo} (${livro.autor}) - ${livro.avaliacao!.toFixed(1)}/5`);
-                        });
-                    }
-                        
+                    exibirEstatisticas();
                     retornarMenu();
                     break;
                 }    
