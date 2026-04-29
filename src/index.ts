@@ -88,7 +88,7 @@ function retornarMenu(): void{
                         switch(tipoConsulta){
                             case '1':
                                 scanf.question("Digite o título do livro que deseja consultar: ", (tituloConsulta: string) => {
-                                    const resultados: Book = biblioteca.filter((livro: Book) => livro.titulo.toLowerCase().includes(tituloConsulta.toLowerCase()));
+                                    const resultados: Book[] = biblioteca.filter((livro: Book) => livro.titulo.toLowerCase().includes(tituloConsulta.toLowerCase()));
                                     if (resultados.length === 0) {
                                         console.log("Nenhum livro encontrado com esse título.");
                                     } else {
@@ -101,7 +101,7 @@ function retornarMenu(): void{
                                 break;
                             case '2':
                                 scanf.question("Digite o autor do livro: ", (autorConsulta: string) => {
-                                    const resultados: Book = biblioteca.filter((livro: Book) => livro.autor.toLowerCase().includes(autorConsulta.toLowerCase()));
+                                    const resultados: Book[] = biblioteca.filter((livro: Book) => livro.autor.toLowerCase().includes(autorConsulta.toLowerCase()));
                                     if (resultados.length === 0) {
                                         console.log("Nenhum livro encontrado desse autor.");
                                     } else {
@@ -114,7 +114,7 @@ function retornarMenu(): void{
                                 break;
                             case '3':
                                 scanf.question("Digite o gênero do livro: ", (generoConsulta: string) => {
-                                    const resultados: Book = biblioteca.filter((livro: Book) => livro.genero.toLowerCase().includes(generoConsulta.toLowerCase()));
+                                    const resultados: Book[] = biblioteca.filter((livro: Book) => livro.genero.toLowerCase().includes(generoConsulta.toLowerCase()));
                                     if (resultados.length === 0) {
                                         console.log("Nenhum livro encontrado desse gênero.");
                                     } else {
@@ -214,7 +214,7 @@ function retornarMenu(): void{
                             });
                         });
                     console.log("===================================================================================================");
-                    const ranking: Book = [...listaAvaliacao].sort((a: Book, b: Book) => b.avaliacao! - a.avaliacao!);
+                    const ranking: Book[] = [...listaAvaliacao].sort((a: Book, b: Book) => b.avaliacao! - a.avaliacao!);
                     if (ranking.length > 0) {
                         console.log("Ranking de avaliação:");
                         ranking.forEach((livro: Book, indice: number) => {
