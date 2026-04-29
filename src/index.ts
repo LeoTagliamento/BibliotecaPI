@@ -177,10 +177,10 @@ function retornarMenu(){
                     });
                     break;
                 case '5':
-                    console.log("Lista de livros cadastrados:");
-                    biblioteca.forEach((livro: Book, indice: number) => {
+                    console.log("Lista de livros pendentes:");
+                    biblioteca.forEach((livro: Book, indice: number) => { if(livro.lido === false){
                     console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
-                    });
+                    }});
                     scanf.question("Digite o titulo do livro que foi lido:", (livroLido: string) => {
                     const livro = biblioteca.find((livro: Book) => livro.titulo.toLowerCase() === livroLido.toLowerCase());
                     if (livro === undefined) {
