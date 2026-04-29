@@ -33,7 +33,7 @@ carregarBiblioteca();
 function retornarMenu(){
     console.log("===================================================================================================");
     scanf.question(
-        "Escolha uma opção: \n 1 - Cadastrar livro \n 2 - Listar todos os livros \n 3 - Consultar livro \n 4 - Remover livro \n 5 - Marcar como lido \n 0 - Sair\n",
+        "Escolha uma opção: \n 1 - Cadastrar livro \n 2 - Listar todos os livros \n 3 - Consultar livro \n 4 - Remover livro \n 5 - Marcar como lido \n 6 - Estatísticas \n 0 - Sair\n",
         (escolha) => {
             switch(escolha){
 
