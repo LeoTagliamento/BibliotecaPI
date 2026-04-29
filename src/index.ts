@@ -80,37 +80,6 @@ function retornarMenu(){
                     biblioteca.forEach((livro: Book, indice: number) => {
                         console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
                     });
-                    console.log("===================================================================================================")
-                    console.log (`Total de livros: ${biblioteca.length} livros(s)`); // Total de livros
-                    const totalLidos =  biblioteca.reduce((contagem,atual) => contagem + (atual.lido ? 1 : 0) ,0); // Total de livros
-                    console.log (`Total lido: ${totalLidos} livro(s)`); //Livro lidos
-                    const percentualLido: number = (totalLidos * 100) / biblioteca.length; // Percentual lidos
-                    console.log(`Percentual de livros lidos: ${percentualLido.toFixed(2)}%`);// Percentual lidos
-                    const listaAvaliacao = biblioteca.filter((livro) => livro.avaliacao !== null);  // Media Avaliações
-                    const mediaAvaliacao: number = (listaAvaliacao.reduce((contagem,livro) => contagem + livro.avaliacao!,0))/listaAvaliacao.length;  // Media Avaliações
-                    console.log(`Media das avaliações: ${mediaAvaliacao.toFixed(1)}/5`) // Media Avaliações
-                    if (listaAvaliacao.length > 0){
-                    const maiorAvaliacao  = listaAvaliacao.reduce((maior, atual) => atual.avaliacao! > maior.avaliacao! ? atual : maior);
-                    console.log(`Maior avaliação: ${maiorAvaliacao.avaliacao!.toFixed(1)} do livro ${maiorAvaliacao.titulo}`);}
-                    const totalPaginasLidas = listaAvaliacao.reduce((total, atual) => total + atual.paginas!,0);
-                    console.log(`Total de páginas lidas: ${totalPaginasLidas}`);
-                    console.log("===================================================================================================");
-                    if (biblioteca.length > 0) {
-                        const grupos: { [decada: number]: Book[] } = {};
-                        biblioteca.forEach((livro) => {
-                            const decada = Math.floor(livro.ano / 10) * 10;
-                            if (!grupos[decada]) grupos[decada] = [];
-                            grupos[decada].push(livro);
-                        });
-                        console.log("Livros por década:");
-                        Object.keys(grupos).map(Number).sort((a, b) => a - b).forEach((decada) => {
-                                const livrosPorDecada = grupos[decada]!;
-                                console.log(`${decada}s (${livrosPorDecada.length} livro(s)):`);
-                                livrosPorDecada.forEach((livro) => {
-                                    console.log(`- ${livro.titulo} (${livro.ano})`);
-                                });
-                            });
-                    }
                     retornarMenu();
                     break;
                 }
@@ -208,7 +177,54 @@ function retornarMenu(){
                         }
                     }
                 });
-                    break;0
+                    break;
+                case '6': {
+                    if (biblioteca.length === 0) {
+                        console.log("Nenhum livro cadastrado.");
+                        retornarMenu();
+                        break;
+                    }
+                    console.log("===================================================================================================")
+                    console.log (`Total de livros: ${biblioteca.length} livros(s)`); // Total de livros
+                    const totalLidos =  biblioteca.reduce((contagem,atual) => contagem + (atual.lido ? 1 : 0) ,0); // Total de livros
+                    console.log (`Total lido: ${totalLidos} livro(s)`); //Livro lidos
+                    const percentualLido: number = (totalLidos * 100) / biblioteca.length; // Percentual lidos
+                    console.log(`Percentual de livros lidos: ${percentualLido.toFixed(2)}%`);// Percentual lidos
+                    const listaAvaliacao = biblioteca.filter((livro) => livro.avaliacao !== null);  // Media Avaliações
+                    const mediaAvaliacao: number = (listaAvaliacao.reduce((contagem,livro) => contagem + livro.avaliacao!,0))/listaAvaliacao.length;  // Media Avaliações
+                    console.log(`Media das avaliações: ${mediaAvaliacao.toFixed(1)}/5`) // Media Avaliações
+                    if (listaAvaliacao.length > 0){
+                    const maiorAvaliacao  = listaAvaliacao.reduce((maior, atual) => atual.avaliacao! > maior.avaliacao! ? atual : maior);
+                    console.log(`Maior avaliação: ${maiorAvaliacao.avaliacao!.toFixed(1)} do livro ${maiorAvaliacao.titulo}`);}
+                    const totalPaginasLidas = listaAvaliacao.reduce((total, atual) => total + atual.paginas!,0);
+                    console.log(`Total de páginas lidas: ${totalPaginasLidas}`);
+                    console.log("===================================================================================================");
+                    const grupos: { [decada: number]: Book[] } = {};
+                    biblioteca.forEach((livro) => {
+                        const decada = Math.floor(livro.ano / 10) * 10;
+                        if (!grupos[decada]) grupos[decada] = [];
+                        grupos[decada].push(livro);
+                    });
+                    console.log("Livros por década:");
+                    Object.keys(grupos).map(Number).sort((a, b) => a - b).forEach((decada) => {
+                            const livrosPorDecada = grupos[decada]!;
+                            console.log(`${decada}s (${livrosPorDecada.length} livro(s)):`);
+                            livrosPorDecada.forEach((livro) => {
+                                console.log(`- ${livro.titulo} (${livro.ano})`);
+                            });
+                        });
+                    console.log("===================================================================================================");
+                    const ranking = [...listaAvaliacao].sort((a, b) => b.avaliacao! - a.avaliacao!);
+                    if (ranking.length > 0) {
+                        console.log("Ranking de avaliação:");
+                        ranking.forEach((livro, indice) => {
+                            console.log(`${indice + 1}º - ${livro.titulo} (${livro.autor}) - ${livro.avaliacao!.toFixed(1)}/5`);
+                        });
+                    }
+                        
+                    retornarMenu();
+                    break;
+                }    
                 default:
                     console.log("Opção inválida.");
                     retornarMenu();
