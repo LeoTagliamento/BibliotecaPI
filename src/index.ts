@@ -94,6 +94,23 @@ function retornarMenu(){
                     console.log(`Maior avaliação: ${maiorAvaliacao.avaliacao!.toFixed(1)} do livro ${maiorAvaliacao.titulo}`);}
                     const totalPaginasLidas = listaAvaliacao.reduce((total, atual) => total + atual.paginas!,0);
                     console.log(`Total de páginas lidas: ${totalPaginasLidas}`);
+                    console.log("===================================================================================================");
+                    if (biblioteca.length > 0) {
+                        const grupos: { [decada: number]: Book[] } = {};
+                        biblioteca.forEach((livro) => {
+                            const decada = Math.floor(livro.ano / 10) * 10;
+                            if (!grupos[decada]) grupos[decada] = [];
+                            grupos[decada].push(livro);
+                        });
+                        console.log("Livros por década:");
+                        Object.keys(grupos).map(Number).sort((a, b) => a - b).forEach((decada) => {
+                                const livrosPorDecada = grupos[decada]!;
+                                console.log(`${decada}s (${livrosPorDecada.length} livro(s)):`);
+                                livrosPorDecada.forEach((livro) => {
+                                    console.log(`- ${livro.titulo} (${livro.ano})`);
+                                });
+                            });
+                    }
                     retornarMenu();
                     break;
                 }
