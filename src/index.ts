@@ -75,14 +75,26 @@ function retornarMenu(){
                 });
                 break;
                 
-                case '2':  
+                case '2':  {
                     console.log("Lista de livros cadastrados:");
                     biblioteca.forEach((livro: Book, indice: number) => {
                         console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
                     });
+                    console.log("===================================================================================================")
+                    console.log (`Total de livros: ${biblioteca.length} livros(s)`); // Total de livros
+                    const totalLidos =  biblioteca.reduce((contagem,atual) => contagem + (atual.lido ? 1 : 0) ,0); // Total de livros
+                    console.log (`Total lido: ${totalLidos} livro(s)`); //Livro lidos
+                    const percentualLido: number = (totalLidos * 100) / biblioteca.length; // Percentual lidos
+                    console.log(`Percentual de livros lidos: ${percentualLido.toFixed(2)}%`);// Percentual lidos
+                    const listaAvaliacao = biblioteca.filter((livro) => livro.avaliacao !== null);  // Media Avaliações
+                    const mediaAvaliacao: number = (listaAvaliacao.reduce((contagem,livro) => contagem + livro.avaliacao!,0))/listaAvaliacao.length;  // Media Avaliações
+                    console.log(`Media das avaliações: ${mediaAvaliacao.toFixed(1)}/5`) // Media Avaliações
+                    if (listaAvaliacao.length > 0){
+                    const maiorAvaliacao  = listaAvaliacao.reduce((maior, atual) => atual.avaliacao! > maior.avaliacao! ? atual : maior);
+                    console.log(`Maior avaliação: ${maiorAvaliacao.avaliacao!.toFixed(1)} do livro ${maiorAvaliacao.titulo}`);}
                     retornarMenu();
                     break;
-
+                }
                 case '3':
                     scanf.question("Tipo de consulta:\n 1 - Titulo \n 2 - Autor \n 3 - Gênero\n", (tipoConsulta: string) => {
                         switch(tipoConsulta){
