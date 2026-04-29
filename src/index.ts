@@ -177,6 +177,10 @@ function retornarMenu(){
                     });
                     break;
                 case '5':
+                    console.log("Lista de livros lidos:");
+                    biblioteca.forEach((livro: Book, indice: number) => { if(livro.lido === true){
+                    console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
+                    }});
                     console.log("Lista de livros pendentes:");
                     biblioteca.forEach((livro: Book, indice: number) => { if(livro.lido === false){
                     console.log(`${indice + 1}. ${livro.titulo} - ${livro.autor} (${livro.ano}) - Gênero: ${livro.genero} - Lido: ${livro.lido} - Avaliação: ${livro.avaliacao}/5`);
