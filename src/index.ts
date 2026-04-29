@@ -1,31 +1,6 @@
-import * as fs from 'fs';
-import * as readline from 'readline';
-
-type Book = {
-    titulo: string,
-    autor: string,
-    genero: string,
-    ano: number,
-    paginas: number,
-    lido: boolean,
-    avaliacao: number | null
-}
-
-const biblioteca: Book[] = [];
-function carregarBiblioteca(): void {
-        const todosLivros: string = fs.readFileSync('biblioteca.json', 'utf8');
-            biblioteca.push(...JSON.parse(todosLivros) as Book[]);
-    
-}
-function salvarBiblioteca(): void {
-    const bibliotecajson:string = JSON.stringify(biblioteca, null, 2);
-    fs.writeFileSync('biblioteca.json', bibliotecajson, 'utf8');
-}
-
-const scanf = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout  
-});
+import type { Book } from './tipos.js';
+import { biblioteca, carregarBiblioteca, salvarBiblioteca } from './biblioteca.js';
+import { scanf } from './prompt.js';
 
 
     console.log("\nTagliameto's Biblioteca");
