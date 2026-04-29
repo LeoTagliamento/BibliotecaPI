@@ -92,6 +92,8 @@ function retornarMenu(){
                     if (listaAvaliacao.length > 0){
                     const maiorAvaliacao  = listaAvaliacao.reduce((maior, atual) => atual.avaliacao! > maior.avaliacao! ? atual : maior);
                     console.log(`Maior avaliação: ${maiorAvaliacao.avaliacao!.toFixed(1)} do livro ${maiorAvaliacao.titulo}`);}
+                    const totalPaginasLidas = listaAvaliacao.reduce((total, atual) => total + atual.paginas!,0);
+                    console.log(`Total de páginas lidas: ${totalPaginasLidas}`);
                     retornarMenu();
                     break;
                 }
