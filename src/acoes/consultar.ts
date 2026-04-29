@@ -50,3 +50,4 @@ export function consultarLivro(retornarMenu: () => void): void {
                 break;
         }
     });
+}
